@@ -19,3 +19,13 @@ if __name__ == '__main__':
     assert parse_cookie('') == {}
     assert parse_cookie('name=Dima;age=28;') == {'name': 'Dima', 'age': '28'}
     assert parse_cookie('name=Dima=User;age=28;') == {'name': 'Dima=User', 'age': '28'}
+    assert parse_cookie('name=+380502924354;age=2+2') == {'name': '380502924354', 'age': '2 2'}
+    assert parse_cookie('name=&;color=&;exempe==name=') == {'name': '', 'color': '', 'exemple': '=name='}
+    assert parse_cookie('name=&;color=&;exempe=?name?') == {'name': '', 'color': '', 'exemple': '?name?'}
+    assert parse_cookie('name=?/;color=/&;exempe=?name=/') == {'name': '?/', 'color': '/', 'exemple': '?name=/'}
+    assert parse_cookie('name=?/;color=/p;exempe=?name=/&;main=1000') == {'name': '?/', 'color': '/p', 'exemple': '?name=/', 'main': '1000'}
+    assert parse_cookie('name=https://example.com/') == {'name': 'https://example.com/'}
+    assert parse_cookie('name=діма;color=червоний') == {'name': 'діма', 'color': 'червоний'}
+    assert parse_cookie('name=/&color=/') == {'name': '/', 'color': '/'}
+    assert parse_cookie('name:/;/=dima') == {'name': '', '/': 'dima'}
+    assert parse_cookie('name:/?/= ?dima?') == {'name:/?/': '?dima?'}
